@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  backend-dev:
+    container_name: nest-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    env_file:
+      - .env
+    ports:
+      - '$PORT:$PORT'
+
+    command: 'npm start:dev'
+    volumes:
+      - ./src:/home/node/app/src
+    networks:
+      - nest-api-network
+
+networks:
+  nest-api-network:
+    driver: bridge
